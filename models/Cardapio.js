@@ -10,7 +10,7 @@ const CardapioModel = sequelize.define('Cardapio', {
     }
 })
 
-CardapioModel.hasMany(Produto, where({foreignKey: 'cardapio'}))
+//CardapioModel.hasMany(Produto, { foreignKey: 'cardapioId' })
 
 module.exports = {
     

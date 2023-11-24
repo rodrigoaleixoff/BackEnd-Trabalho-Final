@@ -1,6 +1,8 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../helpers/banco')
 
+const Cardapio = require('./Cardapio')
+
 const ProdutosModel = sequelize.define('Produtos',{
     nome: {
         type: DataTypes.STRING,
@@ -14,6 +16,8 @@ const ProdutosModel = sequelize.define('Produtos',{
         type: DataTypes.STRING
     }
 });
+
+//ProdutosModel.belongsTo(Cardapio, { foreignKey: 'cardapioId' })
 
 module.exports = {
     
