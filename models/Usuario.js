@@ -3,7 +3,7 @@ const sequelize = require("../helpers/banco")
 
 const Cardapio = require('./Cardapio')
 
-const Usuario = sequelize.define('Usuario', {
+const UsuarioModel = sequelize.define('Usuario', {
     nome:{
         type: DataTypes.STRING,
         allowNull: false
@@ -15,18 +15,17 @@ const Usuario = sequelize.define('Usuario', {
     admin: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        default: false
+        defaultValue: false
     }
 })
 
-Usuario.hasMany(Cardapio)
-
-Cardapio.belongsTo(Usuario)
+UsuarioModel.hasMany(Cardapio, where({foreignKey: 'usuario'}))
 
 module.exports = {
     
     async create(usuario, senha, admin){
-
+        const newUser = await Usuario.create({ nome: usuario, senha: senha, admin: admin })
+        return newUser
     }, 
     async update(id, usuario, senha, admin){
 

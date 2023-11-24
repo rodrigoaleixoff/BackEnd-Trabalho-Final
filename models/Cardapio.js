@@ -3,16 +3,14 @@ const sequelize = require('../helpers/banco')
 
 const Produto = require('./Produto')
 
-const Cardapio = sequelize.define('Cardapio', {
+const CardapioModel = sequelize.define('Cardapio', {
     titulo: {
         type: DataTypes.STRING,
         allowNull: false
     }
 })
 
-Cardapio.hasMany(Produto)
-
-Produto.belongsTo(Cardapio)
+CardapioModel.hasMany(Produto, where({foreignKey: 'cardapio'}))
 
 module.exports = {
     
