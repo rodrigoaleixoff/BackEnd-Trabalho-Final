@@ -17,24 +17,25 @@ const ProdutosModel = sequelize.define('Produtos',{
     }
 });
 
-//ProdutosModel.belongsTo(Cardapio, { foreignKey: 'cardapioId' })
+ProdutosModel.belongsTo(Cardapio.Model, { foreignKey: 'cardapioId' })
 
 module.exports = {
     
     async create(nome, preco, descricao){
-
+        const criar = await ProdutosModel.create({ nome: nome, preco:preco, descricao:descricao})
+        return criar
     },
-    async update(id, nome, descricao){
-
+    async update(id, nome, preco, descricao){
+        return await ProdutosModel.update({nome: nome, preco: preco, descricao: descricao}, {where: {_id:id}})
     },
     async delete(id){
-
+        return await ProdutosModel.destroy({where: {_id: id}})
     },
     async list(){
-
+        return await ProdutosModel.findAll()
     },
     async listByName(nome){
-
+        return await ProdutosModel.findAll({where: {nome: nome}})
     },
 
     Model: ProdutosModel
