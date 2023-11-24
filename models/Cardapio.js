@@ -27,5 +27,5 @@ module.exports = {
 
     },
 
-    Model : Cardapio
+    Model : CardapioModel
 }

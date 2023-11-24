@@ -1,7 +1,7 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../helpers/banco')
 
-const Produtos = sequelize.define('Produtos',{
+const ProdutosModel = sequelize.define('Produtos',{
     nome: {
         type: DataTypes.STRING,
         allowNull: false
@@ -33,5 +33,5 @@ module.exports = {
 
     },
 
-    Model: Produtos
+    Model: ProdutosModel
 }

@@ -24,16 +24,19 @@ UsuarioModel.hasMany(Cardapio, where({foreignKey: 'usuario'}))
 module.exports = {
     
     async create(usuario, senha, admin){
-        const newUser = await Usuario.create({ nome: usuario, senha: senha, admin: admin })
+        const newUser = await UsuarioModel.create({ nome: usuario, senha: senha, admin: admin })
         return newUser
     }, 
     async update(id, usuario, senha, admin){
-
+        return await UsuarioModel.update({usuario: usuario, senha: senha, admin: admin}, {where: {_id: id}})
     },
-    async delete(id, usuario, senha){
-
-    },
+    async delete(id){
+        return await UsuarioModel.destroy({where: {_id: id}})
+    }, 
+    async listAll(){
+        return await UsuarioModel.findAll()
+    }, 
     
-    Model: Usuario
+    Model: UsuarioModel
 
 };
