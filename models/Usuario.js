@@ -19,7 +19,7 @@ const UsuarioModel = sequelize.define('Usuario', {
     }
 })
 
-//UsuarioModel.hasMany(Cardapio, where({foreignKey: 'usuario'}))
+UsuarioModel.hasMany(Cardapio, {where:{foreignKey: 'usuario'}})
 
 module.exports = {
     
