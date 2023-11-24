@@ -8,4 +8,20 @@ const Cardapio = sequelize.define('Cardapio', {
     }
 })
 
-module.exports = Cardapio
+module.exports = {
+    
+    async create(titulo){
+
+    },
+    async delete(id){
+
+    },
+    async update(id, titulo){
+
+    }, 
+    async list(){
+
+    },
+
+    Model : Cardapio
+}

@@ -15,4 +15,23 @@ const Produtos = sequelize.define('Produtos',{
     }
 });
 
-module.exports = Produtos;
+module.exports = {
+    
+    async create(nome, preco, descricao){
+
+    },
+    async update(id, nome, descricao){
+
+    },
+    async delete(id){
+
+    },
+    async list(){
+
+    },
+    async listByName(nome){
+
+    },
+
+    Model: Produtos
+}

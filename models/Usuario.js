@@ -17,4 +17,18 @@ const Usuario = sequelize.define('Usuario', {
     }
 })
 
-module.exports = Usuario;
+module.exports = {
+    
+    async create(usuario, senha, admin){
+
+    }, 
+    async update(id, usuario, senha, admin){
+
+    },
+    async delete(id, usuario, senha){
+
+    },
+    
+    Model: Usuario
+
+};
