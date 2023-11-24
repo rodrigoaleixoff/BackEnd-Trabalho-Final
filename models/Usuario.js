@@ -1,6 +1,8 @@
 const {DataTypes} = require("sequelize")
 const sequelize = require("../helpers/banco")
 
+const Cardapio = require('./Cardapio')
+
 const Usuario = sequelize.define('Usuario', {
     nome:{
         type: DataTypes.STRING,
@@ -16,6 +18,10 @@ const Usuario = sequelize.define('Usuario', {
         default: false
     }
 })
+
+Usuario.hasMany(Cardapio)
+
+Cardapio.belongsTo(Usuario)
 
 module.exports = {
     
