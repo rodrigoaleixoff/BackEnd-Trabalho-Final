@@ -17,7 +17,7 @@ const ProdutosModel = sequelize.define('Produtos',{
     }
 });
 
-ProdutosModel.belongsTo(Cardapio.Model, { foreignKey: 'cardapioId' })
+ProdutosModel.belongsTo(Cardapio.Model, { foreignKey: '' })
 
 module.exports = {
     
