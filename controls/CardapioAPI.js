@@ -32,6 +32,7 @@ router.put('/', async (req, res) => {
 
 router.delete('/', async (req, res) => {
     const id = req.body.id
+    console.log(id)
     await CardapioDAO.delete(id)
     const verificar = await CardapioDAO.findById(id)
     if (!verificar){
