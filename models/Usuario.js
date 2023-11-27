@@ -26,15 +26,18 @@ module.exports = {
         const newUser = await UsuarioModel.create({ usuario: usuario, senha: senha, admin: admin })
         return newUser
     }, 
-    async update(id, usuario, senha, admin){
-        return await UsuarioModel.update({usuario: usuario, senha: senha, admin: admin}, {where: {_id: id}})
+    async update(usuario1, usuario2, senha, admin){
+        return await UsuarioModel.update({usuario: usuario2, senha: senha, admin: admin}, {where: {usuario: usuario1}})
     },
-    async delete(id){
-        return await UsuarioModel.destroy({where: {_id: id}})
+    async delete(usuario){
+        return await UsuarioModel.destroy({where: {usuario: usuario}})
     }, 
     async listAll(){
         return await UsuarioModel.findAll()
     }, 
+    async findByUsername(usuario){
+        return await UsuarioModel.findOne({where: {usuario: usuario}})
+    },
     
     Model: UsuarioModel
 
