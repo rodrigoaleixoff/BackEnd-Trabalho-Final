@@ -1,8 +1,6 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../helpers/banco')
 
-const Cardapio = require('./Cardapio')
-
 const ProdutosModel = sequelize.define('Produtos',{
     nome: {
         type: DataTypes.STRING,
