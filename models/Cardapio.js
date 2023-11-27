@@ -1,12 +1,16 @@
 const {DataTypes} = require('sequelize')
 const sequelize = require('../helpers/banco')
 
+const Produtos = require('./Produto')
+
 const CardapioModel = sequelize.define('Cardapio', {
     titulo: {
         type: DataTypes.STRING,
         allowNull: false
     }
 })
+
+CardapioModel.hasMany(Produtos.Model, {foreignKey: 'usuario'})
 
 module.exports = {
     

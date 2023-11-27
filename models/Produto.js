@@ -17,8 +17,6 @@ const ProdutosModel = sequelize.define('Produtos',{
     }
 });
 
-ProdutosModel.belongsTo(Cardapio.Model, { foreignKey: '' })
-
 module.exports = {
     
     async create(nome, preco, descricao){

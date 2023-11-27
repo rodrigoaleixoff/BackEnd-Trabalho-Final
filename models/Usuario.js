@@ -4,9 +4,9 @@ const sequelize = require("../helpers/banco")
 const Cardapio = require('./Cardapio')
 
 const UsuarioModel = sequelize.define('Usuario', {
-    nome:{
+    usuario:{
         type: DataTypes.STRING,
-        allowNull: false
+        primaryKey: true
     } ,
     senha: {
         type: DataTypes.STRING,
@@ -14,7 +14,6 @@ const UsuarioModel = sequelize.define('Usuario', {
     }, 
     admin: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
         defaultValue: false
     }
 })
@@ -24,7 +23,7 @@ UsuarioModel.hasMany(Cardapio.Model, {foreignKey: 'usuario'})
 module.exports = {
     
     async create(usuario, senha, admin){
-        const newUser = await UsuarioModel.create({ nome: usuario, senha: senha, admin: admin })
+        const newUser = await UsuarioModel.create({ usuario: usuario, senha: senha, admin: admin })
         return newUser
     }, 
     async update(id, usuario, senha, admin){
