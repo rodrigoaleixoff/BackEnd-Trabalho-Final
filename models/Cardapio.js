@@ -30,6 +30,9 @@ module.exports = {
     async list(usuario){
         return await CardapioModel.findByPk(usuario)
     },
+    async findById(id){
+        return await CardapioModel.findAll({where: {_id:id}})
+    },
 
     Model : CardapioModel
 }
