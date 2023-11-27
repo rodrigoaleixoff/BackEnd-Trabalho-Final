@@ -7,22 +7,25 @@ const CardapioModel = sequelize.define('Cardapio', {
     titulo: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    descricao: {
+        type: DataTypes.STRING
     }
 })
 
-CardapioModel.hasMany(Produtos.Model, {foreignKey: 'usuario'})
+CardapioModel.hasMany(Produtos.Model, {foreignKey: 'cardapioId'})
 
 module.exports = {
     
-    async create(titulo){
-        const criar = await CardapioModel.create({titulo: titulo})
+    async create(usuario, titulo, descricao){
+        const criar = await CardapioModel.create({usuario: usuario, titulo: titulo, descricao: descricao})
         return criar
     },
     async delete(id){
         return await CardapioModel.destroy({where: {_id: id}})
     },
-    async update(id, titulo){
-        return await CardapioModel.update({_id:id})
+    async update(id, titulo, descricao){
+        return await CardapioModel.update({titulo: titulo, descricao: descricao}, {where: {_id:id}})
     }, 
     async list(usuario){
         return await CardapioModel.findByPk(usuario)
