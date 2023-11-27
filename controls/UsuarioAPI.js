@@ -40,8 +40,9 @@ router.put('/', async (req, res) => {
     if (encontrarAnt){
         if (!encotrarNovo){
             var alterar = await UsuarioDAO.update(usuarioAnt, usuarioNovo, senha, admin)
+            var usuario = await UsuarioDAO.findByUsername(usuarioNovo)
             if (alterar){
-                res.json({msg: "Usuario atualizado"});
+                res.json(usuario);
                 } else {
                     res.status(500).json({msg: 'Falha ao atualizar o usuário'});
                 }

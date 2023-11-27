@@ -16,7 +16,7 @@ router.post ('/', async (req, res) => {
 
 router.get('/:usuario', async (req, res) => {
     const usuario = req.params.usuario
-    const list = await CardapioDAO.list(usuario)
+    const list = await CardapioDAO.findByUsername(usuario)
     res.json(list)
 })
 

@@ -22,16 +22,16 @@ module.exports = {
         return criar
     },
     async delete(id){
-        return await CardapioModel.destroy({where: {_id: id}})
+        return await CardapioModel.destroy({where: {id: id}})
     },
     async update(id, titulo, descricao){
-        return await CardapioModel.update({titulo: titulo, descricao: descricao}, {where: {_id:id}})
+        return await CardapioModel.update({titulo: titulo, descricao: descricao}, {where: {id:id}})
     }, 
-    async list(usuario){
-        return await CardapioModel.findByPk(usuario)
+    async list(id){
+        return await CardapioModel.findByPk({id: id})
     },
-    async findById(id){
-        return await CardapioModel.findAll({where: {_id:id}})
+    async findByUsername(usuario){
+        return await CardapioModel.findAll({where: {usuario: usuario}})
     },
 
     Model : CardapioModel
