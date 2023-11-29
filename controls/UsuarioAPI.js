@@ -14,7 +14,7 @@ router.post('/entrar', async (req,res) => {
     const {usuario, senha} = req.body
     const usuarioLogado = await UsuarioDAO.findByUsername(usuario)
     if (usuarioLogado.senha == senha){
-        let token = jwt.sign({usuario: usuario, admin: usuarioLogado.admin}, '123')
+        let token = jwt.sign({usuario: usuario, admin: usuarioLogado.admin}, '123', {expiresIn: '10min'})
         res.json({login: true, token: token})
     }   else{
         res.status(500).json({login: false, msg: 'Usuario invalido'})
@@ -28,6 +28,7 @@ router.post('/', async (req, res) => {
     if (!verificar){
         var conta = await UsuarioDAO.create(usuario, senha, admin)
         res.json(conta)
+        
     } else
         res.status(500).json({msg: 'Falha ao criar o usuario'})
 })
