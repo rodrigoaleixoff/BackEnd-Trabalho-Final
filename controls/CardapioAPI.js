@@ -5,7 +5,7 @@ const Auth = require('../helpers/Auth')
 const CardapioDAO = require('../models/Cardapio')
 
 
-router.post ('/', async (req, res) => {
+router.post ('/', Auth.validaAcesso, async (req, res) => {
     const {usuario, titulo, descricao} = req.body
     const novoCardapio = await CardapioDAO.create(usuario, titulo, descricao)
     if(novoCardapio) {
