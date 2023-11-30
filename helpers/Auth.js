@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const Usuario = require('../models/Usuario')
 
 module.exports = {
-    validaAcesso: async (req,res,next) => {
+    validaAcesso: (usuario1) => async (req,res,next) => {
         let bear = req.headers['authorization'] || ''
         let token = bear.split(' ')
         if (token[0] == 'Bearer'){
@@ -15,16 +15,21 @@ module.exports = {
 
             const usuarioBanco = await Usuario.findByUsername(usuario)
 
-            if(!usuarioBanco){
-                res.status(500).json({msg: "Usuario nao encontrado"})
-            } else{
-                if (usuarioBanco.admin){
-                    req.usuario = usuario
-                    next()
-                } else{
-                    res.status(500).json({msg: 'Acesso negado'})
-                }
+            if (usuario1 === usuario || usuarioBanco.admin) {
+                if(!usuarioBanco){
+                    res.status(500).json({msg: "Usuario nao encontrado"})
+                    } else{
+                        if (usuarioBanco.admin){
+                            req.usuario = usuario
+                            next()
+                            } else{
+                                res.status(500).json({msg: 'Acesso negado'})
+                            }                            
+                        }
             }
+            else res.status(500).json({msg: "Acesso não liberado"})
+
+            
         })
     }
 }
