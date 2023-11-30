@@ -17,9 +17,8 @@ const ProdutosModel = sequelize.define('Produtos',{
 
 module.exports = {
     
-    async create(nome, preco, descricao){
-        const criar = await ProdutosModel.create({ nome: nome, preco:preco, descricao:descricao})
-        return criar
+    async create(id, nome, preco, descricao){
+        return await ProdutosModel.create({ nome: nome, preco:preco, descricao:descricao}, {where: {cardapioId: id}})
     },
     async update(id, nome, preco, descricao){
         return await ProdutosModel.update({nome: nome, preco: preco, descricao: descricao}, {where: {id:id}})
