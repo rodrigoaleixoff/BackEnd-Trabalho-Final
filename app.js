@@ -7,6 +7,8 @@ var logger = require('morgan');
 var usuarioRouter = require('./controls/UsuarioAPI')
 var installRouter = require("./controls/InstallAPI")
 var cardapioRouter = require('./controls/CardapioAPI')
+var produtoRouter = require('./controls/ProdutosAPI')
+var docsRouter = require('./controls/Docs')
 
 var app = express();
 
@@ -22,7 +24,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/usuario', usuarioRouter)
 app.use('/cardapio', cardapioRouter)
+app.use('/produto', produtoRouter)
 app.use('/install', installRouter)
+app.use('/docs', docsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

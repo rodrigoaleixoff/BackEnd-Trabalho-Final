@@ -1,6 +1,7 @@
 const Sequelize = require("sequelize")
+require('dotenv').config()
 
-const sequelize = new Sequelize("trabalho_final", "root", "Ralley012", {host: "localhost", dialect: "mysql"})
+const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {host: process.env.HOST, dialect: process.env.DIALECT})
 
 sequelize.authenticate()
     .then(() => console.log("Conectado no Mysql!"))

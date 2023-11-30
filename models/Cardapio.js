@@ -27,6 +27,9 @@ module.exports = {
     async update(id, titulo, descricao){
         return await CardapioModel.update({titulo: titulo, descricao: descricao}, {where: {id:id}})
     }, 
+    async listAll(){
+        return await CardapioModel.findAll()
+    },
     async list(id){
         return await CardapioModel.findByPk({id: id})
     },
