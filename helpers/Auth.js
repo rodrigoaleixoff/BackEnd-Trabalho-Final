@@ -10,7 +10,10 @@ module.exports = {
         }
         jwt.verify(token, '123', async (err, decoded) => {
             if (err) res.status(500).json({msg: "Token invalido"})
-
+            else {
+                req.usuario = decoded.usuario
+                next()
+            }
             const usuario = decoded.usuario
 
             const usuarioBanco = await Usuario.findByUsername(usuario)

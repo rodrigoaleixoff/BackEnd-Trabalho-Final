@@ -28,6 +28,7 @@ router.post('/', async (req, res) => {
     if (!verificar){
         var conta = await UsuarioDAO.create(usuario, senha, admin)
         res.json(conta)
+        
     } else
         res.status(500).json({msg: 'Falha ao criar o usuario'})
 })
