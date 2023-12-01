@@ -21,7 +21,7 @@ module.exports = {
         return await ProdutosModel.create({ nome: nome, preco:preco, descricao:descricao}, {where: {cardapioId: id}})
     },
     async update(id, nome, preco, descricao){
-        return await ProdutosModel.update({nome: nome, preco: preco, descricao: descricao}, {where: {id:id}})
+        return await ProdutosModel.update({nome: nome, preco: preco, descricao: descricao}, {where: {cardapioId:id}})
     },
     async delete(id){
         return await ProdutosModel.destroy({where: {id: id}})
@@ -31,6 +31,9 @@ module.exports = {
     },
     async listByName(nome){
         return await ProdutosModel.findAll({where: {nome: nome}})
+    },
+    async listAll(){
+        return await ProdutosModel.findAll()
     },
 
     Model: ProdutosModel

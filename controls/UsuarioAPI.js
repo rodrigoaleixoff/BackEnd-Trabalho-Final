@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const jwt = require('jsonwebtoken')
 
+var Auth = require('../helpers/Auth')
 var UsuarioDAO = require('../models/Usuario')
 
 router.get('/', async (req, res) =>  {

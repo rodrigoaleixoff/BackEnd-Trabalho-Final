@@ -11,13 +11,13 @@ router.post('/', async (req,res) => {
 })
 
 router.get('/:id', async (req,res) =>{
-    const mostrar = await ProdutoDAO.listByCardapio(id)
+    const mostrar = await ProdutoDAO.listByCardapio(req.params.id)
     res.json(mostrar)
 })
 
 router.get('/', async (req,res) => {
-    const nome = req.body.nome
-    const mostrar = await ProdutoDAO.listByName(nome)
+    //const nome = req.body.nome
+    const mostrar = await ProdutoDAO.listAll()
     res.json(mostrar)
 })
 
