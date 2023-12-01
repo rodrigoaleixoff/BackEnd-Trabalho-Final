@@ -16,7 +16,6 @@ router.get('/:id', async (req,res) =>{
 })
 
 router.get('/', async (req,res) => {
-    //const nome = req.body.nome
     const mostrar = await ProdutoDAO.listAll()
     res.json(mostrar)
 })
