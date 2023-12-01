@@ -43,6 +43,7 @@ router.post('/', async (req, res) => {
         res.json(conta)
         
     } else res.status(500).json({msg: 'Falha ao criar o usuario'})
+
 })
 
 //Criar administrador
@@ -64,6 +65,7 @@ router.post('/admin', Auth.validaAcesso, async (req,res) =>{
         } else res.status(500).json({msg: 'Usuario ja existe'})
 
     } else res.status(500).json({msg: "Voce nao e um administrador."})
+
 })
 
 router.put('/', Auth.validaAcesso, async (req, res) => {
@@ -84,7 +86,7 @@ router.put('/', Auth.validaAcesso, async (req, res) => {
                 var alterar = await UsuarioDAO.update(usuarioAnt, usuarioNovo, senha, isAdmin.admin)
                 var usuario = await UsuarioDAO.findByUsername(usuarioNovo)
 
-                if (alterar) res.json(usuario);
+                if (alterar) res.json({usuario: usuario, msg: "Voce deve entrar denovo."});
                 else res.status(500).json({msg: 'Falha ao atualizar o usuário'});
 
             } else res.status(500).json({msg: "Novo nome do usuario ja existe"})
@@ -92,6 +94,7 @@ router.put('/', Auth.validaAcesso, async (req, res) => {
         } else res.status(500).json({msg: 'Falha ao encontrar o usuario'})
 
     } else res.status(500).json({msg: "Voce nao e o dono da conta ou um administrador"})
+
 })
 
 //Deletar padrao
@@ -105,6 +108,7 @@ router.delete('/:usuario', Auth.validaAcesso, async (req, res) => {
         else res.status(500).json({msg: 'Falha ao deletar o usuário'})
 
     } else res.status(500).json({msg: "Voce nao pode excluir esse usuario"})
+
 })
 
 //Deletar nao administradores
@@ -125,6 +129,7 @@ router.delete('/admin/:usuario', Auth.validaAcesso, async (req, res) => {
         } else res.status(500).json({msg: "O usuario que esta tentando excluir e administrador."})
 
     } else res.status(500).json({msg: "Voce nao e administrador."})
+    
 })
 
 module.exports = router;
