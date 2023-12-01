@@ -73,6 +73,8 @@ router.put('/', Auth.validaAcesso, async (req, res) => {
     const {usuarioAnt, usuarioNovo, senha} = req.body
 
     const isAdmin = await UsuarioDAO.findByUsername(req.usuarioDecodificado)
+    const usuarioAntigo = await UsuarioDAO.findByUsername(usuarioAnt)
+    const admin = usuarioAntigo.admin
 
     if (req.usuarioDecodificado === usuarioAnt || isAdmin.admin){
 
@@ -83,7 +85,7 @@ router.put('/', Auth.validaAcesso, async (req, res) => {
 
             if (!encotrarNovo){
 
-                var alterar = await UsuarioDAO.update(usuarioAnt, usuarioNovo, senha, isAdmin.admin)
+                var alterar = await UsuarioDAO.update(usuarioAnt, usuarioNovo, senha, admin)
                 var usuario = await UsuarioDAO.findByUsername(usuarioNovo)
 
                 if (alterar) res.json({usuario: usuario, msg: "Voce deve entrar denovo."});
@@ -129,7 +131,7 @@ router.delete('/admin/:usuario', Auth.validaAcesso, async (req, res) => {
         } else res.status(500).json({msg: "O usuario que esta tentando excluir e administrador."})
 
     } else res.status(500).json({msg: "Voce nao e administrador."})
-    
+
 })
 
 module.exports = router;

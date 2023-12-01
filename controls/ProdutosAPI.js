@@ -45,7 +45,7 @@ router.get('/', async (req,res) => {
 
 })
 
-router.put('/', async (req,res) => {
+router.put('/', Auth.validaAcesso, async (req,res) => {
 
     const {id, nome, preco, descricao} = req.body
 
