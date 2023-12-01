@@ -22,13 +22,10 @@ router.post ('/', Auth.validaAcesso, async (req, res) => {
 
         const novoCardapio = await CardapioDAO.create(usuario, titulo, descricao)
 
-        if(novoCardapio) {
+        if(novoCardapio) res.json({msg: "Novo Cardapio"})
+        else res.status(500).json({msg: "Falha ao criar cardapio"})
 
-            res.json({msg: "Novo Cardapio"})
-
-        } 
-
-    }
+    } else res.status(500).json({msg: "Voce nao tem autorizacao"})
 
 })
 
@@ -61,7 +58,7 @@ router.put('/', Auth.validaAcesso, async (req, res) => {
         if (atualizado) res.json(atualizado)
         else res.status(500).json({ msg: "Cardapio nao atualizado"})
 
-    }
+    } else res.status(500).json({msg: "Voce nao tem autorizacao"})
 
 })
 
@@ -80,7 +77,7 @@ router.delete('/', async (req, res) => {
         if (!verificar) res.json({ msg: "Cardapio excluido com sucesso"})
         else res.status(500).json({ msg: "Nao foi possivel excluir o cardapio"})
         
-    }
+    } else res.status(500).json({msg: "Voce nao tem autorizacao"})
 
 })
 
