@@ -5,10 +5,42 @@ const jwt = require('jsonwebtoken')
 var Auth = require('../helpers/Auth')
 var UsuarioDAO = require('../models/Usuario')
 
+async function paginacao(item, page, limit){
+
+    let result = []
+
+    let totalPage = Math.ceil(item.length / limit)
+    let count = (page * limit) - limit
+
+    let delimiter = count + limit
+
+    if (page <= totalPage){
+
+        for (let i = count; i < delimiter; i++){
+
+            result.push(item[i])
+            count++
+
+        }
+
+    } else return false
+
+    return result
+
+}
+
 router.get('/', async (req, res) =>  {
 
     const list = await UsuarioDAO.listAll()
-    res.json(list)
+       
+    const {page = 1} = req.query
+    const limit = 5
+
+    const paginaListed = await paginacao(list, page, limit)
+
+    if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
+    else res.json({paginado: paginaListed, geral: list})
+
 
 });
 

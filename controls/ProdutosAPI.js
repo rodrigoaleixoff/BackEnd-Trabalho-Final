@@ -6,6 +6,30 @@ const ProdutoDAO = require('../models/Produto')
 const Usuario = require('../models/Usuario')
 const Cardapio = require("../models/Cardapio")
 
+async function paginacao(item, page, limit){
+
+    let result = []
+
+    let totalPage = Math.ceil(item.length / limit)
+    let count = (page * limit) - limit
+
+    let delimiter = count + limit
+
+    if (page <= totalPage){
+
+        for (let i = count; i < delimiter; i++){
+
+            result.push(item[i])
+            count++
+
+        }
+
+    } else return false
+
+    return result
+
+}
+
 async function verificar(id, usuarioDecodificado){
 
     const usuario = await Cardapio.findById(id)
@@ -34,14 +58,30 @@ router.post('/', Auth.validaAcesso, async (req,res) => {
 router.get('/:id', async (req,res) =>{
 
     const mostrar = await ProdutoDAO.listByCardapio(req.params.id)
-    res.json(mostrar)
+       
+    const {page = 1} = req.query
+    const limit = 5
+
+    const paginaListed = await paginacao(mostrar, page, limit)
+
+    if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
+    else res.json({paginado: paginaListed, geral: list})
+
 
 })
 
 router.get('/', async (req,res) => {
 
     const mostrar = await ProdutoDAO.listAll()
-    res.json(mostrar)
+       
+    const {page = 1} = req.query
+    const limit = 5
+
+    const paginaListed = await paginacao(mostrar, page, limit)
+
+    if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
+    else res.json({paginado: paginaListed, geral: list})
+
 
 })
 

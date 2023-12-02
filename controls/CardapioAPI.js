@@ -54,7 +54,7 @@ router.post ('/', Auth.validaAcesso, async (req, res) => {
 })
 
 router.get('/', async (req,res) =>{
-    
+
     const {page = 1} = req.query
     const limit = 5
 
@@ -70,9 +70,17 @@ router.get('/', async (req,res) =>{
 router.get('/:usuario', async (req, res) => {
 
     const usuario = req.params.usuario
+       
+    const {page = 1} = req.query
+    const limit = 5
 
     const list = await CardapioDAO.findByUsername(usuario)
-    res.json(list)
+
+    const paginaListed = await paginacao(list, page, limit)
+
+    if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
+    else res.json({paginado: paginaListed, geral: list})
+
 
 })
 
