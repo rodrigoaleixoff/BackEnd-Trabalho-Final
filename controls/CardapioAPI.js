@@ -5,6 +5,30 @@ const Auth = require('../helpers/Auth')
 const CardapioDAO = require('../models/Cardapio')
 const Usuario = require('../models/Usuario')
 
+async function paginacao(item, page, limit){
+
+    let result = []
+
+    let totalPage = Math.ceil(item.length / limit)
+    let count = (page * limit) - limit
+
+    let delimiter = count + limit
+
+    if (page <= totalPage){
+
+        for (let i = count; i < delimiter; i++){
+
+            result.push(item[i])
+            count++
+
+        }
+
+    } else return false
+
+    return result
+
+}
+
 async function validar(usuario, usuarioDecodificado){
 
     const verificar = await Usuario.findByUsername(usuarioDecodificado)
@@ -30,9 +54,16 @@ router.post ('/', Auth.validaAcesso, async (req, res) => {
 })
 
 router.get('/', async (req,res) =>{
+    
+    const {page = 1} = req.query
+    const limit = 5
 
     const list = await CardapioDAO.listAll()
-    res.json(list)
+
+    const paginaListed = await paginacao(list, page, limit)
+
+    if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
+    else res.json({paginado: paginaListed, geral: list})
 
 })
 
