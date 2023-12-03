@@ -65,7 +65,7 @@ router.get('/:id', async (req,res) =>{
     const paginaListed = await paginacao(mostrar, page, limit)
 
     if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
-    else res.json({paginado: paginaListed, geral: list})
+    else res.json({paginado: paginaListed})
 
 
 })
@@ -80,7 +80,7 @@ router.get('/', async (req,res) => {
     const paginaListed = await paginacao(mostrar, page, limit)
 
     if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
-    else res.json({paginado: paginaListed, geral: list})
+    else res.json({paginado: paginaListed})
 
 
 })

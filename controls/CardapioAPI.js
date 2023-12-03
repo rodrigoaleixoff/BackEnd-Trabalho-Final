@@ -79,7 +79,7 @@ router.get('/:usuario', async (req, res) => {
     const paginaListed = await paginacao(list, page, limit)
 
     if (!paginaListed) res.json({msg: "Nao ha cardapio nessa pagina"})
-    else res.json({paginado: paginaListed, geral: list})
+    else res.json({paginado: paginaListed})
 
 
 })
