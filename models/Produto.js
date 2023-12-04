@@ -29,9 +29,6 @@ module.exports = {
     async listByCardapio(idCardapio){
         return await ProdutosModel.findAll({where: {cardapioId: idCardapio}})
     },
-    async listByName(nome){
-        return await ProdutosModel.findAll({where: {nome: nome}})
-    },
     async listAll(){
         return await ProdutosModel.findAll()
     },
